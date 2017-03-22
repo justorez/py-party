@@ -15,8 +15,8 @@ def getAllChapter(session):
 
 	r = session.get(
 		zz_data.chapter_url,
-		timeout=23,
-		headers=zz_data.common_header
+		timeout = 23,
+		headers = zz_data.common_header
 	)
 	r.encoding = 'UTF-8'
 	soup = BeautifulSoup(r.text, 'html.parser')
@@ -75,7 +75,7 @@ def getSectionStatus(session, sectionId):
 	status_header = zz_data.status_header
 	status_payload = zz_data.status_payload
 
-	p = re.compile('jid=\d*')
+	p = re.compile(r'jid=\d*')
 	status_header['Referer'] = re.sub(p, 'jid='+sectionId, status_header['Referer'])
 	status_payload['c0-e1'] = re.sub(p, 'jid='+sectionId, status_payload['c0-e1'])
 	status_payload['page'] = re.sub(p, 'jid='+sectionId, status_payload['page'])

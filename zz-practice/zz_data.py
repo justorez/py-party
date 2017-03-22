@@ -45,10 +45,12 @@ login_header = {
 	'Referer': 'http://www.attop.com/login_pop.htm'
 }
 
+
 # 验证码地址
 checkcode_url = 'http://www.attop.com/image.jpg'
 # 验证码本地保存路径
 checkcode_path = 'D:/code.jpg'
+
 
 # DWRSESSIONID 字符串
 dwr_session_id = 'DWRSESSIONID'
@@ -66,7 +68,6 @@ genDwrsid_payload = {
 	'page': '/index.htm',
 	'scriptSessionId': ''
 }
-
 
 
 # 作用未知
@@ -91,7 +92,7 @@ topnum_header = {
 }
 
 
-# 章节学习状态地址（需要设置章节序号）
+# 章节学习状态地址
 status_url = 'http://www.attop.com/js/ajax/call/plaincall/zsClass.commonAjax.dwr'
 # 章节状态信息请求参数
 status_payload = {
@@ -120,9 +121,9 @@ status_header = {
 
 
 
-# 关于学习请求地址
+# 学习请求地址
 learn_url = 'http://www.attop.com/js/ajax/call/plaincall/zsClass.commonAjax.dwr'
-# 学习ing 请求参数
+# 学习请求参数
 learn_payload = {
 	'callCount': 1,
 	'windowName': '',
@@ -130,8 +131,8 @@ learn_payload = {
 	'c0-methodName': 'commonAjax',
 	'c0-id': 0,
 	'c0-param0':'string:getWkOnlineNum',
-	'c0-e1': 'number:42',                 # CourseID
-	'c0-e2': 'number:',               # 需要设置 jid
+	'c0-e1': 'number:42',   # CourseID
+	'c0-e2': 'number:',     # 需要设置 jid
 	'c0-param1': 'Object_Object:{bid:reference:c0-e1, jid:reference:c0-e2}',
 	'c0-param2': 'string:doGetWkOnlineNum',
 	'batchId': 1,

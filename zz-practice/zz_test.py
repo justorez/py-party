@@ -10,13 +10,13 @@ def testLogin(session):
 	模拟登录测试
 	:param session: 
 	"""
-	# 测试连接（用户中心）
+	# 测试链接（用户中心）
 	test_url = zz_data.userhome_url
 	try:
 		r = session.get(test_url, timeout=23)
 		r.raise_for_status()
 	except:
-		print("failed to test, status: %d" % r.status_code)
+		print("failed to login test, status: %d" % r.status_code)
 		return False
 	else:
 		soup = BeautifulSoup(r.text, 'html.parser')
@@ -27,7 +27,7 @@ def testLogin(session):
 			return False
 		else:
 			print('登录成功！\n')
-			print(soup.title.get_text())
+			print('修行者: '+soup.title.get_text().split('_')[0])
 		print('='*100)
 		return True
 

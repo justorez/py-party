@@ -11,11 +11,6 @@ import utils
 
 
 def loginZZ():
-	loginUI_url = zz_data.loginUI_url
-	login_url = zz_data.login_url
-	login_payload = zz_data.login_payload
-	login_header = zz_data.login_header
-
 	# 开启会话
 	session = requests.Session()
 
@@ -24,9 +19,9 @@ def loginZZ():
 
 	# 先打开一次登录界面
 	session.get(
-		loginUI_url,
-		timeout=23,
-		headers=zz_data.common_header
+		zz_data.loginUI_url,
+		timeout = 23,
+		headers = zz_data.common_header
 	)
 
 	# 获取并设置 DWRSESSIONID
@@ -38,6 +33,8 @@ def loginZZ():
 
 	# 设置验证码-请求参数
 	handleCheckcode(session)
+
+	login_payload = zz_data.login_payload
 	# 设置用户密码-请求参数
 	login_payload['c0-e1'] = login_payload['c0-e1'] + str(username)
 	login_payload['c0-e2'] = login_payload['c0-e2'] + str(password)
@@ -50,9 +47,9 @@ def loginZZ():
 	# 开始登录
 	try:
 		r = session.post(
-			login_url,
-			data=post_data,
-			headers=login_header
+			zz_data.login_url,
+			data = post_data,
+			headers = zz_data.login_header
 		)
 		r.raise_for_status()
 	except:
@@ -65,7 +62,9 @@ def loginZZ():
 		# print(r.text)
 		# print( str(session.cookies) )
 
-		testLogin(session)
+		# 登录测试失败，则直接结束修行
+		if not testLogin(session):
+			exit(-1)
 		return True,session
 
 
@@ -79,7 +78,7 @@ def handleCheckcode(session):
 	try:
 		r = session.get(
 			checkcode_url+'?r='+timestamp,
-			timeout=30
+			timeout = 30
 		)
 		r.raise_for_status()
 	except:
@@ -93,15 +92,11 @@ def handleCheckcode(session):
 
 # 获取 DWRSESSIONID
 def getDwrsid(session):
-	genDwrsid_url = zz_data.genDwrsid_url
-	genDwrsid_payload = zz_data.genDwrsid_payload
-	common_header = zz_data.common_header
-
 	try:
 		r = session.post(
-			genDwrsid_url,
-			data=genDwrsid_payload,
-			headers=common_header
+			zz_data.genDwrsid_url,
+			data = zz_data.genDwrsid_payload,
+			headers = zz_data.common_header
 		)
 		r.raise_for_status()
 	except:

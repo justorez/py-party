@@ -13,7 +13,7 @@ def run():
 		return
 	else:
 		print('='*100)
-		input('Please press Enter to f**k ZZ!')
+		input('Please press Enter to f**k ZZ!\n')
 		try:
 			toBeImmortal(session)
 		except:

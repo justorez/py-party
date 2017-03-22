@@ -78,7 +78,6 @@ if __name__ == '__main__':
 	print(genRandStr(7))
 	print(genRandStr(9))
 
-	dwr_session_id = '3LHsU0$82nWNQH$ettx6nadYRGl'
-	print(__genSSId(dwr_session_id))
+	print(__genSSId('3LHsU0$82nWNQH$ettx6nadYRGl'))
 
 	print( subStr('abcd(123)dc', 'cd(', ')dc') )

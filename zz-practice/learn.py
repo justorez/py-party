@@ -31,9 +31,9 @@ def fk_zz(session, section):
 
 		learn_header = zz_data.learn_header
 		learn_payload = zz_data.learn_payload
-		p = re.compile('jid=\d*')
+		p = re.compile(r'jid=\d*')
 		learn_header['Referer'] = re.sub(p, 'jid='+section['jid'], learn_header['Referer'])
-		learn_payload['c0-e2'] = re.sub('number:\d*', 'number:'+section['jid'], learn_payload['c0-e2'])
+		learn_payload['c0-e2'] = re.sub(r'number:\d*', 'number:'+section['jid'], learn_payload['c0-e2'])
 		learn_payload['page'] = re.sub(p, 'jid=' + section['jid'], learn_payload['page'])
 		learn_payload['batchId'] = batchId
 		learn_payload['scriptSessionId'] = utils.genSSIdBySession(session)
