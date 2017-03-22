@@ -18,7 +18,7 @@ def search(key):
 if __name__ == '__main__':
 	loadContent()
 	while True:
-		key = input('请输入SB-毛概的题目：')
+		key = input('请输入SB-某概的题目：')
 		if key=='fuck off':
 			exit()
 		search(key)
