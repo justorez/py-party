@@ -3,9 +3,7 @@
 
 
 
-**一号小伙伴**：[sb-mougai](sb-mougai) （某 ZZ 网，某概的人生选择助手）
+**一号小伙伴**：[zz-practice](zz-practice) （ZZ 网的时间修行）
 
-**二号小伙伴**：[zz-practice](zz-practice) （ZZ 网的时间修行）
-
-**三号小伙伴**：[wechat-imgs](wechat-imgs) （拼接一张微信好友头像的大合集）
+**二号小伙伴**：[wechat-imgs](wechat-imgs) （拼接一张微信好友头像的大合集）
 
