@@ -56,5 +56,5 @@ python3：
 
 ## 源码解析
 
-请直接查看：[wechat-imgs.py](wechat-imgs.py) （代码中有详细注释）
+请直接查看：[wechat-imgs.py](https://github.com/aloneZERO/py-party/blob/master/wechat-imgs/wechat_imgs.py) （代码中有详细注释）
 
