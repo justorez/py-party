@@ -7,5 +7,5 @@
 
 **二号小伙伴**：[zz-practice](zz-practice) （ZZ 网的时间修行）
 
-**三号小伙伴**：[wechat-imgs](wechat-imgs) （fork from https://github.com/15331094/wxImage/）
+**三号小伙伴**：[wechat-imgs](wechat-imgs) （拼接一张微信好友头像的大合集）
 
