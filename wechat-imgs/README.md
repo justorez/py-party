@@ -2,7 +2,7 @@
 
 ------
 
-Fork from:  [github.com/15331094/wxImage](https://github.com/15331094/wxImage)
+Forked from:  [github.com/15331094/wxImage](https://github.com/15331094/wxImage)
 
 ------
 
