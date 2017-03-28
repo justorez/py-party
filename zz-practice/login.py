@@ -26,7 +26,7 @@ def loginZZ():
 	session = requests.Session()
 
 	login_info = loginInfo()
-	if len(login_info) < 2:
+	if login_info['username']=='' or login_info['password']=='':
 		username = input('你的 ZZ 用户名：')
 		password = input('你的 ZZ 密码：')
 	else:
