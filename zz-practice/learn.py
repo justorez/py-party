@@ -1,17 +1,19 @@
 #!python3
 # coding: utf-8
 
+import copy
+import time
+
 import utils
 import zz_info
-import time
 import zz_data
-import re
 
 
 # 燥起来
 def fk_zz(session, section):
 	batchId = 1
-	section_status = zz_info.getSectionStatus(session, section['jid'])
+	jid = section['jid']  # 章节序号
+	section_status = zz_info.getSectionStatus(session, jid)
 
 	last_time = int(section_status['learned_time'])
 	while True:
@@ -29,12 +31,11 @@ def fk_zz(session, section):
 		# 延迟15秒（模拟学习，时间不够会出错）
 		time.sleep(15)
 
-		learn_header = zz_data.learn_header
-		learn_payload = zz_data.learn_payload
-		p = re.compile(r'jid=\d*')
-		learn_header['Referer'] = re.sub(p, 'jid='+section['jid'], learn_header['Referer'])
-		learn_payload['c0-e2'] = re.sub(r'number:\d*', 'number:'+section['jid'], learn_payload['c0-e2'])
-		learn_payload['page'] = re.sub(p, 'jid=' + section['jid'], learn_payload['page'])
+		learn_header = copy.deepcopy(zz_data.learn_header)
+		learn_payload = copy.deepcopy(zz_data.learn_payload)
+		learn_header['Referer'] = learn_header['Referer'].format(jid)
+		learn_payload['c0-e2'] = learn_payload['c0-e2'].format(jid)
+		learn_payload['page'] = learn_payload['page'].format(jid)
 		learn_payload['batchId'] = batchId
 		learn_payload['scriptSessionId'] = utils.genSSIdBySession(session)
 

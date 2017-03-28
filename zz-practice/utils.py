@@ -64,10 +64,14 @@ def subStr(s, head, tail):
 	else:
 		return s[i+len(head):j]
 
+# 取出 session 中的 cookie，返回字典格式数据
+def getCookieInSession(session):
+	cookies = requests.utils.dict_from_cookiejar(session.cookies)
+	return cookies
 
 # 向 session 中添加新的 cookie（字典格式）
 def addCooike(session, new_cookie):
-	cookies = requests.utils.dict_from_cookiejar(session.cookies)
+	cookies = getCookieInSession(session)
 	for k,v in new_cookie.items():
 		cookies[k] = v
 	cookiejar = requests.utils.cookiejar_from_dict(cookies)

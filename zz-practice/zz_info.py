@@ -1,11 +1,12 @@
 #!python3
 # coding: utf-8
 
-import zz_data
+import copy
 from bs4 import BeautifulSoup
+
 from login import loginZZ
 import utils
-import re
+import zz_data
 
 
 # 取出所有的章节信息
@@ -52,33 +53,20 @@ def getAllChapter(session):
 
 	return all_chapter
 
-# 未知作用
+
+# 作用未知
 # def getTopNum(session, sectionId):
-# 	topnum_header = zz_data.topnum_header
-# 	topnum_payload = zz_data.topnum_payload
-# 	topnum_header['Referer'] += sectionId
-# 	topnum_payload['page'] += sectionId
-# 	scriptSessionId = utils.genSSIdBySession(session)
-# 	topnum_payload['scriptSessionId'] = scriptSessionId
-#
-# 	r = session.post(
-# 		zz_data.topnum_url,
-# 		data = topnum_payload,
-# 		headers = topnum_header
-# 	)
-# 	r.encoding = 'UTF-8'
-# 	print(r.text)
+#   pass
 
 
 # 根据 sectionId 获取章节的状态：时间完成情况等
 def getSectionStatus(session, sectionId):
-	status_header = zz_data.status_header
-	status_payload = zz_data.status_payload
+	status_header = copy.deepcopy(zz_data.status_header)
+	status_payload = copy.deepcopy(zz_data.status_payload)
 
-	p = re.compile(r'jid=\d*')
-	status_header['Referer'] = re.sub(p, 'jid='+sectionId, status_header['Referer'])
-	status_payload['c0-e1'] = re.sub(p, 'jid='+sectionId, status_payload['c0-e1'])
-	status_payload['page'] = re.sub(p, 'jid='+sectionId, status_payload['page'])
+	status_header['Referer'] = status_header['Referer'].format(sectionId)
+	status_payload['c0-e1'] = status_payload['c0-e1'].format(sectionId)
+	status_payload['page'] = status_payload['page'].format(sectionId)
 	status_payload['scriptSessionId'] = utils.genSSIdBySession(session)
 
 	# TODO 测试点：章节状态请求参数
@@ -115,7 +103,7 @@ def getSectionStatus(session, sectionId):
 if __name__ == '__main__':
 	flag,session = loginZZ()
 
-	getSectionStatus(session, '1080')
-	getSectionStatus(session, '1069')
+	print( getSectionStatus(session, '1075') )
+	print( getSectionStatus(session, '1069') )
 
 

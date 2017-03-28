@@ -9,7 +9,7 @@ from learn import toBeImmortal
 def run():
 	flag,session = loginZZ()
 	if not flag or session is None:
-		print('\n服务器君抽风啦~(＞﹏＜)')
+		print('\n服务君抽风啦~(＞﹏＜)')
 		return
 	else:
 		print('='*100)
@@ -17,7 +17,7 @@ def run():
 		try:
 			toBeImmortal(session)
 		except:
-			print('\n服务器君抽风啦~(＞﹏＜)')
+			print('\n服务君抽风啦~(＞﹏＜)')
 			print('请稍后重试')
 
 

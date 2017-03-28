@@ -27,9 +27,9 @@ login_payload = {
 	'c0-scriptName': 'zsClass',
 	'c0-methodName': 'coreAjax',
 	'c0-id': 0,
-	'c0-e1': 'string:',  # 用户名
-	'c0-e2': 'string:',  # 密码
-	'c0-e3': 'string:',  # 验证码
+	'c0-e1': 'string:{0}',  # 用户名
+	'c0-e2': 'string:{0}',  # 密码
+	'c0-e3': 'string:{0}',  # 验证码
 	'c0-param0': 'string:loginWeb',
 	'c0-e4': 'number:2',
 	'c0-param1': 'Object_Object:{username:reference:c0-e1, password:reference:c0-e2, rand:reference:c0-e3, autoflag:reference:c0-e4}',
@@ -102,7 +102,7 @@ status_payload = {
 	'c0-methodName': 'commonAjax',
 	'c0-id': 0,
 	'c0-param0': 'string:getAjaxList2',
-	'c0-e1': 'string:id=42&jid=',
+	'c0-e1': 'string:id=42&jid={0}',
 	'c0-e2': 'string:learn_1.htm',
 	'c0-e3': 'number:1',
 	'c0-e4': 'string:showajaxinfo2',
@@ -110,13 +110,13 @@ status_payload = {
 	'c0-param2': 'string:doShowAjaxList2',
 	'batchId': 4,
 	'instanceId': 0,
-	'page': '/wk/learn.htm?id=42&jid=',
-	'scriptSessionId': ''
+	'page': '/wk/learn.htm?id=42&jid={0}',
+	'scriptSessionId': '{0}'
 }
 # 章节状态信息请求头信息
 status_header = {
 	'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36',
-	'Referer': 'http://www.attop.com/wk/learn.htm?id=42&jid='
+	'Referer': 'http://www.attop.com/wk/learn.htm?id=42&jid={0}'
 }
 
 
@@ -132,18 +132,18 @@ learn_payload = {
 	'c0-id': 0,
 	'c0-param0':'string:getWkOnlineNum',
 	'c0-e1': 'number:42',   # CourseID
-	'c0-e2': 'number:',     # 需要设置 jid
+	'c0-e2': 'number:{0}',     # 需要设置 jid
 	'c0-param1': 'Object_Object:{bid:reference:c0-e1, jid:reference:c0-e2}',
 	'c0-param2': 'string:doGetWkOnlineNum',
 	'batchId': 1,
 	'instanceId': 0,
-	'page': '/wk/learn.htm?id=42&jid=',
-	'scriptSessionId':''
+	'page': '/wk/learn.htm?id=42&jid={0}',
+	'scriptSessionId':'{0}'
 }
 # 关于学习请求消息头
 learn_header = {
 	'User-Agent':'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36',
-	'Referer': 'http://www.attop.com/wk/learn.htm?id=42&jid='
+	'Referer': 'http://www.attop.com/wk/learn.htm?id=42&jid={0}'
 }
 
 

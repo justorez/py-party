@@ -1,21 +1,37 @@
 #!python3
 # coding: utf-8
 
-import requests
+import json
 import time
 import math
+import requests
 from urllib.parse import urlencode
+
 import zz_data
-from zz_test import testLogin
 import utils
+from zz_test import testLogin
 
 
+
+# 根据配置文件读取用户信息
+def loginInfo():
+	with open('conf/user_info.json', 'r', encoding='utf-8') as fr:
+		info = json.load(fr)
+	return info
+
+
+# 登录 ZZ
 def loginZZ():
 	# 开启会话
 	session = requests.Session()
 
-	username = input('你的 ZZ 用户名：')
-	password = input('你的 ZZ 密码：')
+	login_info = loginInfo()
+	if len(login_info) < 2:
+		username = input('你的 ZZ 用户名：')
+		password = input('你的 ZZ 密码：')
+	else:
+		username = login_info['username']
+		password = login_info['password']
 
 	# 先打开一次登录界面
 	session.get(
@@ -31,13 +47,16 @@ def loginZZ():
 		return False,None
 	utils.addCooike(session, {zz_data.dwr_session_id: dwrsid})
 
-	# 设置验证码-请求参数
-	handleCheckcode(session)
+	# 设置验证码-请求参数（两套方案）
+	try:
+		autoHandleCheckCode(session)
+	except:
+		handleCheckcode(session)
 
 	login_payload = zz_data.login_payload
 	# 设置用户密码-请求参数
-	login_payload['c0-e1'] = login_payload['c0-e1'] + str(username)
-	login_payload['c0-e2'] = login_payload['c0-e2'] + str(password)
+	login_payload['c0-e1'] = login_payload['c0-e1'].format(username)
+	login_payload['c0-e2'] = login_payload['c0-e2'].format(password)
 
 	# 对请求参数进行编码
 	post_data = urlencode(login_payload)
@@ -68,26 +87,48 @@ def loginZZ():
 		return True,session
 
 
-# 设置验证码
+# 设置验证码（人工）
 def handleCheckcode(session):
 	login_payload = zz_data.login_payload
 	checkcode_url = zz_data.checkcode_url
-	checkcode_path = zz_data.checkcode_path
 
+	# 生成一个时间戳
 	timestamp = str(math.floor(time.time() * 1000))
 	try:
 		r = session.get(
 			checkcode_url+'?r='+timestamp,
 			timeout = 30
 		)
+		print(utils.getCookieInSession(session))
 		r.raise_for_status()
 	except:
 		print("failed to get Check Code, status: %d"%r.status_code)
 	else:
-		with open(checkcode_path, 'wb') as fw:
+		with open(zz_data.checkcode_path, 'wb') as fw:
 			fw.write(r.content)
 		checkcode = input('请到D盘根目录查看验证码并输入：')
-		login_payload['c0-e3'] = login_payload['c0-e3'] + str(checkcode)
+		login_payload['c0-e3'] = login_payload['c0-e3'].format(checkcode)
+
+
+# 设置验证码（自动，根据 Cookie）
+def autoHandleCheckCode(session):
+	login_payload = zz_data.login_payload
+	checkcode_url = zz_data.checkcode_url
+
+	# 生成一个时间戳
+	timestamp = str(math.floor(time.time() * 1000))
+	try:
+		r = session.get(
+			checkcode_url + '?r=' + timestamp,
+			timeout=30
+		)
+		cookies = utils.getCookieInSession(session)
+		r.raise_for_status()
+	except:
+		raise Exception
+	else:
+		checkCode = cookies['rand']
+		login_payload['c0-e3'] = login_payload['c0-e3'].format(checkCode)
 
 
 # 获取 DWRSESSIONID
@@ -114,5 +155,6 @@ def getDwrsid(session):
 
 
 if __name__ == '__main__':
+	print( loginInfo() )
 	loginZZ()
 
