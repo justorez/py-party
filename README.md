@@ -7,3 +7,5 @@
 
 **二号小伙伴**：[wechat-imgs](wechat-imgs) （拼接一张微信好友头像的大合集）
 
+三号小伙伴：[2048-console](2048-console) （控制台版本的 2048）
+
