@@ -9,3 +9,5 @@
 
 三号小伙伴：[2048-console](2048-console) （控制台版本的 2048）
 
+**四号小伙伴**：[ss-account-updater](ss-account-updater) （SS账号更新-小福利）
+
