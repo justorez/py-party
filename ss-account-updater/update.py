@@ -6,27 +6,24 @@ from bs4 import BeautifulSoup
 import json
 import re
 import base64
+import string
+import random
 import os
-import uuid
-import time
 
-# 网站一：HTML数据
-URL_1 = 'https://global.ishadowx.net'
-# 网站二：二维码数据
+URL_1 = 'http://isx.yt/'
 URL_2 = 'https://en.ss8.fun/images/server0{0}.png'
 HEADERS_1 = {
-    'Host': 'global.ishadowx.net',
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36'
 }
 
-# 解析二维码的API
+# 解析二维码的接口
 QR_URL = 'http://jiema.wwei.cn/url-jiema.html'
 HEADERS_QR = {
     'Host': 'jiema.wwei.cn',
+    'Referer': 'http://jiema.wwei.cn/url.html',
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36'
 }
 
-# 本地SS配置文件路径
 ss_cnf = ''
 
 # 获取页面内容
@@ -46,7 +43,7 @@ def get_ss_url():
     for i in range(3):
         post_data = {
             # token其实无所谓，这里是40位随机
-            'token': str(uuid.uuid1()).replace('-','')[:30]+str(int(time.time())),
+            'token': random_str(),
             'jiema_url': URL_2.format(i+1)
         }
         try:
@@ -119,7 +116,7 @@ def ext_f(text):
     try:
         server_port = re_f('Port', info)  # 端口
     except Exception as e:
-        server_port = "1234" # 默认端口(无效)
+        server_port = "1234" # 默认端口
     try:
         password = re_f('Password', info) # 密码
     except Exception as e:
@@ -128,6 +125,7 @@ def ext_f(text):
         method = re_f('Method', info)     # 加密方式
     except Exception as e:
         method = "aes-256-cfb" # 默认加密方式
+
     return {
         'server'     :server,
         'server_port':server_port,
@@ -148,10 +146,8 @@ def update_ss(latest):
     accounts = cnf['configs']
     n,old = 0,''
     for node in latest:
-        # 抓的数据为空就跳过
         if node['server'] == '':
             continue
-        # 比对：新节点添加|老节点更新
         for i in range(len(accounts)):
             if accounts[i]['server'] == node['server']:
                 old = accounts[i]
@@ -181,6 +177,11 @@ def update_ss(latest):
         fw.write(json.dumps(cnf))
     print('\n更新完成~')
 
+# 生成固定长度的随机字符串
+def random_str(len=40):
+    chs = list(string.ascii_lowercase+string.digits)
+    random.shuffle(chs)
+    return ''.join(chs[:len])
 
 if __name__ == '__main__':
     cnf_path = input('选择SS版本(1.SS, 2.SSR): ').strip()
@@ -189,18 +190,20 @@ if __name__ == '__main__':
         ss_version = 'SS'
     else:
         ss_version = 'SSR'
-    # 自己配置SS_HOME系统变量
-    # 我的本地路径如下：
-    # E:\Arsenal\Shadowsocks\SS
-    # E:\Arsenal\Shadowsocks\SSR
-    # 所以可以选择性更新
     ss_cnf = os.getenv('SS_HOME') + os.sep + ss_version + os.sep + 'gui-config.json'
 
     try:
        html = get_html()
-       urls = get_ss_url()
     except Exception as e:
         pass
     else:
-        latest = extract_ss(html, urls) # 一次全部更新
+        latest = extract_ss(html, []) # 一次全部更新
+        update_ss(latest)
+
+    try:
+        urls = get_ss_url()
+    except Exception as e:
+        raise e
+    else:
+        latest = extract_ss("", urls) # 一次全部更新
         update_ss(latest)
