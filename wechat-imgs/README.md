@@ -7,7 +7,6 @@ Forked from:  [github.com/15331094/wxImage](https://github.com/15331094/wxImage
 ------
 
 
-
 ### 效果图
 
 ![原作者: demo](https://github.com/15331094/wxImage/blob/master/screenshots/@7464eb52a847b7cb7698f2f004586e9d22ed5d148a07da30386c2a726e900320.jpg?raw=true)
@@ -29,20 +28,13 @@ pip install -r requirements.txt # 安装第三方依赖
 python wechat-imgs.py
 ```
 
-
 本地的图片查看软件会自动打开二维码（扫描后即自动删除）：
-
-![二维码](screenshots/QR.png)
 
 用手机微信右上角的扫一扫，确认登陆即可。
 
-稍等片刻，你打开手机微信，找到信息栏的微信传输助手，会看到如下：
-
-![微信文件传输助手](screenshots/file-helper.jpg)
+稍等片刻，你打开手机微信，找到信息栏的微信传输助手就会看到了。
 
 ------
-
-
 
 ## 核心
 
@@ -50,8 +42,6 @@ python3：
 
 - itchat (用于爬取头像)
 - pillow (用于拼接图片)
-
-
 
 
 ## 源码解析
