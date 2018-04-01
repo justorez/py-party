@@ -4,4 +4,4 @@
 
 代码太粗糙了，有待改进。
 
-**感谢**： [iShadow](https://global.ishadowx.net/)
+**感谢**： [iShadow](http://isx.yt/)
