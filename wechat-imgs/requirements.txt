@@ -11,7 +11,7 @@ idna==2.5
 incremental==16.10.1
 itchat==1.2.30
 lxml==3.7.3
-numpy==1.12.0
+numpy==1.21.0
 olefile==0.44
 packaging==16.8
 parsel==1.1.0
