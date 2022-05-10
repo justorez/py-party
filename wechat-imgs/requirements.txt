@@ -10,7 +10,7 @@ cssselect==1.0.1
 idna==2.5
 incremental==16.10.1
 itchat==1.2.30
-lxml==3.7.3
+lxml==4.6.5
 numpy==1.21.0
 olefile==0.44
 packaging==16.8
